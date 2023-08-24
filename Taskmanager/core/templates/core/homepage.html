@@ -1,0 +1,41 @@
+{%  extends "main_template.html" %}
+
+
+{% block title%}
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+      {% if  a %}
+      <h2>
+        No tasks available.
+      </h2>
+      {% else %}
+
+            {% for task in tasks %}
+
+            
+            <div class="box">
+                <h2>
+                    
+                    <ul>
+                      <li>
+                        <a href="{% url 'into-task' task.id %}?q={{task.name}}">{{task.name}}</a>
+                        <h6>
+                            <a href="{% url 'delete-task' task.id %}">Delete {{task.name}}</a>| |<a href="">Edit</a>
+                        </h6>
+                      </li>
+                    </ul>
+                </h2>
+            </div>
+            {% endfor %}
+            
+      {% endif %}
+
+{% endblock %}
