@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from . import models
+from django.contrib.auth.decorators import login_required
 from . import forms 
 from .urls import *
 from django.contrib.auth import authenticate,login,logout
@@ -58,7 +59,7 @@ def homepage(request):
     return render(request,"core/homepage.html",context)
 
 
-
+@login_required(login_url="/login")
 def create_task(request):
 
     form=forms.TaskForm
