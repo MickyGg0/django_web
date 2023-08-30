@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 # Create your views here.
 def login_user(request):
 
+    page="login"
     if request.method == 'POST':
         print(request.POST.get('password'))
         username=request.POST.get('username')
@@ -33,8 +34,8 @@ def login_user(request):
             messages.error(request,"Username or password does not exist .")
 
 
-
-    return render(request,"core/login_user.html")
+    context={"page":page}        
+    return render(request,"core/login_user.html",context)
 
 
 def logout_user(request):
@@ -42,6 +43,12 @@ def logout_user(request):
     logout(request)
     return redirect('homepage')
 
+
+def register_user(request):
+    page="register"
+    return render(request,"base/login_user.html")
+
+    return
 
 
 def homepage(request):

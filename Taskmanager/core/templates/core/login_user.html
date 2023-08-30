@@ -2,6 +2,9 @@
 
 {% block content %}
 
+
+
+{%if page == "login"%}
 <div>
     <form method="POST" action="">
 
@@ -9,6 +12,7 @@
 
         <label >Useraname</label>
         <input type="text" name="username" placeholder="Enter Username">
+        <br>
         <br>
         <label>Password</label>
         <input type="password" name="password" placeholder="Enter Password">
@@ -19,6 +23,22 @@
 
 
     </form>
+    <p>Havent signed up yet ?</p>
+    <a href="{url 'register'}">Sign up</a>
 </div>
 
+{%else%}
+
+<div>
+    <form method="POST" action="">
+
+        {% csrf_token %}
+
+        <input type="submit" value="Register">
+
+    </form>
+    <p>Already signed up</p>
+    <a href="{url 'login'}">Login</a>
+</div>
+{%endif%}
 {% endblock %}
