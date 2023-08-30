@@ -11,3 +11,5 @@ class TaskForm(ModelForm):
 class SearchForm(forms.Form):
     query=forms.CharField(max_length=50,label='Search')
 
+
+   

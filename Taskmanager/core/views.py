@@ -3,6 +3,7 @@ from . import models
 from django.contrib.auth.decorators import login_required
 from . import forms 
 from .urls import *
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -13,7 +14,7 @@ def login_user(request):
     page="login"
     if request.method == 'POST':
         print(request.POST.get('password'))
-        username=request.POST.get('username')
+        username=request.POST.get('username').lower()
         password=request.POST.get('password')
         print(username,password)
 
@@ -22,7 +23,6 @@ def login_user(request):
 
         except:
             messages.error(request,"User does not exist !!.")
-
 
         user=authenticate(request,username=username,password=password)
         print(user)
@@ -45,10 +45,25 @@ def logout_user(request):
 
 
 def register_user(request):
-    page="register"
-    return render(request,"base/login_user.html")
 
-    return
+    form=UserCreationForm()
+    context={"form":form}
+
+    if request.method=='POST':
+        form=UserCreationForm(request.POST)
+        if form.is_valid(): 
+            user=form.save(commit=False)
+            user.username=user.username.lower()
+            user.save()
+            login(request,user)
+            return redirect('homepage')
+         
+        else :
+            messages.error(request,"An error occured during registration.")
+
+        
+    return render(request,"core/login_user.html",context)
+
 
 
 def homepage(request):
@@ -82,7 +97,7 @@ def create_task(request):
 
 
 
-
+@login_required(login_url="/login")
 def view_task(request):
     tasks=models.Task.objects.all()
 
@@ -90,17 +105,37 @@ def view_task(request):
     return render(request,"core/view_task.html",context)
 
 
-
+@login_required(login_url="/login")
 def into_task(request,pk):
 
     task=models.Task.objects.get(id=pk)
     context={"task":task}
     return render(request,"core/into_task.html",context)
 
+
+@login_required(login_url="/login")
 def delete_task(request,pk):
     task=models.Task.objects.get(id=pk)
     task.delete()
     return redirect("homepage")
+
+# def edit_task(request,pk):
+#     task=models.Task.objects.get(id=pk)
+#     form=forms.ModelForm(instance=task)
+
+#     if request.method=="POST":
+#         form=forms.ModelForm(request.POST,instance=task)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("homepage")
+#         context={"form":form}
+        
+#         return render(request,"core/task_form.html",context)
+
+def user_profile(request,pk):
+    user=User.objects.get(id=pk)
+    context={}
+    return render(request,"core/profile.html",context)
 
 
 
