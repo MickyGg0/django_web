@@ -67,8 +67,8 @@ def register_user(request):
 
 
 def homepage(request):
-
-    tasks=models.Task.objects.all()
+    tasks=models.Task.objects.filter(user=request.user.id)
+    # tasks=models.Task.objects.all()
     a=len(tasks)
     if a==0:
         a=True
@@ -88,6 +88,7 @@ def create_task(request):
     if request.method=='POST':
         form=forms.TaskForm(request.POST)
         if form.is_valid:
+            form.instance.user=request.user
             form.save()
             return redirect("homepage")
 
@@ -119,23 +120,21 @@ def delete_task(request,pk):
     task.delete()
     return redirect("homepage")
 
-# def edit_task(request,pk):
-#     task=models.Task.objects.get(id=pk)
-#     form=forms.ModelForm(instance=task)
+def update_task(request,pk):
+    task=models.Task.objects.get(id=pk)
+    form=forms.TaskForm(instance=task)
 
-#     if request.method=="POST":
-#         form=forms.ModelForm(request.POST,instance=task)
-#         if form.is_valid():
-#             form.save()
-#             return redirect("homepage")
-#         context={"form":form}
+    if request.method=="POST":
+        form=forms.TaskForm(request.POST,instance=task)
+        if form.is_valid():
+            form.instance.user=request.user
+            form.save()
+            return redirect("homepage")
+    context={"form":form}
         
-#         return render(request,"core/task_form.html",context)
+    return render(request,"core/task_form.html",context)
 
-def user_profile(request,pk):
-    user=User.objects.get(id=pk)
-    context={}
-    return render(request,"core/profile.html",context)
+
 
 
 

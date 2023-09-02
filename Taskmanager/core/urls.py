@@ -10,5 +10,6 @@ urlpatterns=[
     path("view_task/",views.view_task,name="view-task"),
     path("into_task/<str:pk>",views.into_task,name="into-task"),
     path("delete_task/<str:pk>",views.delete_task,name="delete-task"),
-    path("user_profile/<str:pk>",views.user_profile,name="user-profile")
+    path("update_task/<str:pk>",views.update_task,name='update-task')
+   
 ] 

@@ -5,11 +5,10 @@ from . import models
 class TaskForm(ModelForm):
     class Meta:
         model=models.Task
-        fields='__all__'
+        exclude=['user']
 
 
-class SearchForm(forms.Form):
-    query=forms.CharField(max_length=50,label='Search')
+
 
 
    

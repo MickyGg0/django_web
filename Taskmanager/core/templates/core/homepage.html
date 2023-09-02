@@ -29,7 +29,7 @@
                         <a href="{% url 'into-task' task.id %}?q={{task.name}}">{{task.name}}</a>
                         <h6>
                             <a href="{% url 'delete-task' task.id %}">Delete {{task.name}}</a>| |
-                            <a href="">Edit</a>
+                            <a href="{% url 'update-task' task.id %}">Edit</a>
                         </h6>
                       </li>
                     </ul>

@@ -15,15 +15,20 @@
 
         <div  style="color:blueviolet"> 
         
-        {% if request.user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
 
-       <h1>Hello {{request.user}}</h1> 
-        {%else%}
-        
-        <h1>Welcome to Taskmanager </h1>
+                        <h1>
+                            Hello {{request.user}}
 
-    
-        {% endif %}
+                        </h1> 
+                    {%else%}
+                        
+                        <h1>
+                            Welcome to Taskmanager 
+                        </h1>
+
+                
+                    {% endif %}
 
         </div>
         
@@ -34,6 +39,7 @@
 
 
     </h3>
+
 </div>
+
 <hr>
-<div>
