@@ -1,0 +1,28 @@
+{% extends 'main_template.html' %}
+
+
+{% block content %}.
+<style>
+    .box{
+    border-radius: 50%;
+        
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <!-- <div class="col">
+            <div  class="box"><img src="https://picsum.photos/200/300" alt="" class="img-fluid rounded"></div>
+        </div> -->
+    </div>
+    
+</div>
+
+{% if request.user.is_authenticated %}
+<h2>
+    <a href="{% url 'create-profile'%}">create profile</a>
+</h2>
+{% endif %}
+
+
+
+{% endblock %}

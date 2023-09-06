@@ -1,0 +1,87 @@
+{%  extends "main_template.html" %}
+
+
+{% block title%}
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<style>
+  /* .container-fluid{
+    background-color:blueviolet;
+  } */
+  .box{
+    height:100vh;
+    background-color:lightcoral;
+
+  }
+  .box-description{
+    background-color: white;
+    position: relative;
+  }
+</style>
+
+      {% if  a %}
+      <h2>
+        No tasks available.
+        <a href="{% url 'create-task' %}">Create One</a>
+      </h2>
+      {% else %}
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-2">
+            <div class="box-user">
+              <a href="{% url 'user-profile'%}">{{request.user.username}}</a>
+            </div></div>
+            <div class="col">
+              <div class="box">
+                {% for task in tasks %}
+                <div class="container px-3" >
+                  <h2>
+                    
+                    <ul>
+                      <li>
+                        <a href="{% url 'into-task' task.id %}?q={{task.name}}">{{task.name}}</a>
+                        <h6>
+                            <a href="{% url 'delete-task' task.id %}">Delete {{task.name}}</a>| |
+                            <a href="{% url 'update-task' task.id %}">Edit</a>
+                            <h3>
+                              {% if task.description is None %}
+                              {%else%}
+                              <div class="box-description">
+                                <h3>
+                                  {{task.description}}
+                                </h3>
+                              </div>
+                             
+                              
+                              {%endif%}
+                            </h3>
+                        </h6>
+                      </li>
+                    </ul>
+                    
+                </h2>
+                
+                </div>
+
+              {%endfor%}
+              </div></div>
+              <div class="col">
+                <div class="box"></div></div>
+        </div>
+       
+        </div>
+        
+      </div>
+
+            
+      {% endif %}
+
+{% endblock %}
+
