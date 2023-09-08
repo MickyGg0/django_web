@@ -13,11 +13,8 @@ def login_user(request):
 
     page="login"
     if request.method == 'POST':
-        print(request.POST.get('password'))
         username=request.POST.get('username').lower()
         password=request.POST.get('password')
-        print(username,password)
-
         try:
             user=User.objects.get(username=username)
 
@@ -25,7 +22,6 @@ def login_user(request):
             messages.error(request,"User does not exist !!.")
 
         user=authenticate(request,username=username,password=password)
-        print(user)
  
         if user is not None:
             login(request,user)
@@ -37,27 +33,13 @@ def login_user(request):
     context={"page":page}        
     return render(request,"core/login_user.html",context)
 
-def user_create_profile(request):
-    form=forms.UserProfileForm
-    if request.method=="POST":
-        form=forms.UserProfileForm(request.POST)
-        if form.is_valid:
-            form.instance.user=request.user
-            form.save()
-            return redirect("user-profile")
-        
 
-    context={"form":form}
-
-
-
-    return render(request,"core/user_profile_form.html",context)
 
 
 def logout_user(request):
 
     logout(request)
-    return redirect('homepage')
+    return redirect('login')
 
 
 def register_user(request):
@@ -84,7 +66,6 @@ def register_user(request):
 
 def homepage(request):
     tasks=models.Task.objects.filter(user=request.user.id)
-    # tasks=models.Task.objects.all()
     a=len(tasks)
     if a==0:
         a=True
@@ -151,10 +132,29 @@ def update_task(request,pk):
     return render(request,"core/task_form.html",context)
 
 
-
-
 def user_profile(request):
-    return render(request,"core/user_profile.html")
+    user_profile=request.user.profile
+    context={"user_profile":user_profile}
+    return render(request,"core/profile.html",context)
+
+def profile_update(request):
+    form=forms.ProfileUpdateForm(instance=request.user.profile)
+    if request.method=="POST":
+        form=forms.ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+
+        if form.is_valid():
+            form.save()
+            return redirect("user-profile")
+
+
+    context={"form":form}
+
+    return render(request,"core/update_profile.html",context)
+
+
+
+
+
 
 
 

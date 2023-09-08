@@ -8,13 +8,14 @@ class TaskForm(ModelForm):
         exclude=['user']
 
 
-class UserProfileForm(ModelForm):
+class ProfileUpdateForm(ModelForm):
     class Meta:
-        model=models.UserProfile
-        exclude=["user"]
+        model=models.profile
+        fields="__all__"
+
 
  
 
-
+ 
 
    

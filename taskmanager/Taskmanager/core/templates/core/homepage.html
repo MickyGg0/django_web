@@ -16,33 +16,42 @@
   } */
   .box{
     height:100vh;
-    background-color:lightcoral;
+    background-color:whitesmoke;
 
   }
   .box-description{
-    background-color: white;
+    background-color: whitesmoke;
     position: relative;
   }
 </style>
 
-      {% if  a %}
-      <h2>
-        No tasks available.
-        <a href="{% url 'create-task' %}">Create One</a>
-      </h2>
-      {% else %}
-
       <div class="container-fluid">
         <div class="row">
           <div class="col-2">
-            <div class="box-user">
-              <a href="{% url 'user-profile'%}">{{request.user.username}}</a>
+            <div class="box-user" style="background-color: rgb(83, 133, 226); height:100vh;">
+          
+                <a href="{% url 'user-profile'%}">
+                  <div class="box-profile" style="color: white; padding-left: 7px ; padding-top: 7px;">
+                  <h3>
+                    {{request.user.username}}
+                  </h3>
+                </div>
+                </a>
+              
             </div></div>
             <div class="col">
               <div class="box">
-                {% for task in tasks %}
+              
                 <div class="container px-3" >
+                  {% if  a %}
                   <h2>
+                    No tasks available.
+                    <a href="{% url 'create-task' %}">Create One</a>
+                  </h2>
+                  {% else %}
+                  {% for task in tasks %}
+                  <!-- -----------------------------------=----------------------------------------------------------------------------- -->
+                  <h2> 
                     
                     <ul>
                       <li>
@@ -53,7 +62,7 @@
                             <h3>
                               {% if task.description is None %}
                               {%else%}
-                              <div class="box-description">
+                              <div class="container">
                                 <h3>
                                   {{task.description}}
                                 </h3>
