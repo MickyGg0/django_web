@@ -8,32 +8,34 @@
 <div>
 
     
-    <div class="container border">
+    <div class="container ">
         <div class="row justify-content-center">
-            <div class="col-6">
-                <div class="container px-4"></div>
-                        <form method="POST" action="" >
+            <div class="col-7">
+                <div class="container px-4" style="background-color: rgb(29, 29, 80);">
+                    <div class="col" style="height:50vh">
 
-                            {% csrf_token %}
-                    
-                            <label >Useraname</label>
-                            <input type="text" name="username" placeholder="Enter Username">
-                            <br>
-                            <br>
-                            <label>Password</label>
-                            <input type="password" name="password" placeholder="Enter Password">
-                    
-                            <input type="submit" value="submit">
-        
-        
-                            <p>Havent signed up yet ?</p>
-                            <a href="{% url 'register' %}">Sign up</a>
-                    
-                    
-                    
-                    
-                        </form>
-                    
+                            <form method="POST" action="">
+
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                        <label  class="form-label">USERNAME</label>
+                                        <input type="text" name="username" class="form-control" placeholder="Enter your Username">
+                                </div>
+                                <div class="mb-3">
+                                        <label class="form-label">PASSWORD</label>
+                                        <input type="password" name="password" class="form-control" placeholder="Enter your Password">
+                                </div>
+                                <input type="submit" class="btn btn-primary" value="submit">                           
+                                <p>Havent signed up yet ?</p>
+                                <a href="{% url 'register' %}">Sign up</a>
+                            </form>
+
+                    </div>
+
+                   
+                
+                </div>
+
                 </div>
                 
              
@@ -56,8 +58,13 @@
         <input type="submit" value="Register">
 
     </form>
-    <p>Already signed up</p>
+    <div class="container">
+        <h3 style="color: white;">
+        Already signed up ? </h3>
     <a href="{%url 'login'%}">Login</a>
+
+    </div>
+    
 </div>
 {%endif%}
 {% endblock %}

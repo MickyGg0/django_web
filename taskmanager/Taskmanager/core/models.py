@@ -11,6 +11,7 @@ class Task(models.Model):
     date_created=models.DateField(auto_now_add=True)
     due_date=models.DateField()
     description=models.TextField(max_length=500,null=True,blank=True)
+    completed=models.BooleanField(default=False,null=True,blank=True)
 
     def __str__(self):
         return self.name

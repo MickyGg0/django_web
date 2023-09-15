@@ -15,9 +15,7 @@
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'create-task' %}">Create Task</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'view-task' %}">View Task</a>
-                  </li>
+                  
                   <li class="nav-item">
                     {% if request.user.is_authenticated %}
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -51,19 +49,18 @@
 
 
         <!-- -------------------------------------------------------------- -->
-        <div    style="color:gray"> 
         
                     {% if request.user.is_authenticated %}
+        
 
                         <h1>
                             Hello {{request.user}}
-
                         </h1> 
                     {%else%}
                         <div class="row justify-content-center">
                             <div class="col">
                                 <h1>
-                                    Welcome to Taskmanager 
+                                  <div><h1>Welcome to Taskmanager</h1></div>
                                 </h1>
 
                             </div>

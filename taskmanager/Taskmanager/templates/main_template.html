@@ -21,7 +21,7 @@
     {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
-                <li></li>{{message}}</li>
+                <li>{{message}}</li>
                 {% endfor %}
             </ul>
     {% endif %}
@@ -32,6 +32,8 @@
 
 
     {% endblock %}
+    {% block scripts%}
+    {% endblock%}
     
 </body>
 </html>

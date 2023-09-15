@@ -1,96 +1,194 @@
-{%  extends "main_template.html" %}
-
-
-{% block title%}
-
+{% extends "main_template.html" %} 
+{% block title%} 
 {% endblock %}
+
+
+
 
 
 
 
 {% block content %}
-
 <style>
   /* .container-fluid{
     background-color:blueviolet;
   } */
   .box{
-    height:100vh;
+    height: 100vh;
     background-color:whitesmoke;
-
+    
   }
-  .box-description{
+  .box-sidebar{
+    background-color: rgb(11, 11, 83);;
+    height:100vh;
+  }
+  .box-description {
     background-color: whitesmoke;
     position: relative;
   }
+  .card-header{
+    background-color: white;
+  }
+  .card{
+    background-color: rgb(75, 75, 214);
+  }
+
+  .container-tasks{
+    height: 100vh;
+    overflow-y: scroll;
+  }
 </style>
 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-2">
-            <div class="box-user" style="background-color: rgb(83, 133, 226); height:100vh;">
-          
-                <a href="{% url 'user-profile'%}">
-                  <div class="box-profile" style="color: white; padding-left: 7px ; padding-top: 7px;">
-                  <h3>
-                    {{request.user.username}}
-                  </h3>
-                </div>
-                </a>
-              
-            </div></div>
-            <div class="col">
-              <div class="box">
-              
-                <div class="container px-3" >
-                  {% if  a %}
-                  <h2>
-                    No tasks available.
-                    <a href="{% url 'create-task' %}">Create One</a>
-                  </h2>
-                  {% else %}
-                  {% for task in tasks %}
-                  <!-- -----------------------------------=----------------------------------------------------------------------------- -->
-                  <h2> 
-                    
-                    <ul>
-                      <li>
-                        <a href="{% url 'into-task' task.id %}?q={{task.name}}">{{task.name}}</a>
-                        <h6>
-                            <a href="{% url 'delete-task' task.id %}">Delete {{task.name}}</a>| |
-                            <a href="{% url 'update-task' task.id %}">Edit</a>
-                            <h3>
-                              {% if task.description is None %}
-                              {%else%}
-                              <div class="container">
-                                <h3>
-                                  {{task.description}}
+{% block scripts%}
+
+{% endblock%}
+
+<div class="container-fluid">
+      <div class="row">
+            <!-- col1------ -->
+            <div class="col-2">
+                  <div class="box-sidebar">
+                        <div class="container">
+                          <a href="{%url 'user-profile'%}">
+                                <h3 style="color:white">{{request.user.username}}
                                 </h3>
-                              </div>
+                          </a>
+                        </div>
+                  </div>
+            </div>
+            <!-- col2------ -->
+            <div class="col">
+                  <div class="box">
+                        <div class="container-tasks py-3 px-3">
+                              {% if not a%}
+                              <h3>No Task cards available !!
+                                <br>
+                                <a href="{% url 'create-task' %}">Create one</a>
+                              </h3>
+                              {% else %}
+                              <h3>Task Cards</h3>
                              
-                              
-                              {%endif%}
-                            </h3>
-                        </h6>
-                      </li>
-                    </ul>
+                                {% for task in tasks_a%}
                     
-                </h2>
-                
-                </div>
+                                <!-- card-------- -->
+                                <div  class="card text-center mb-3" style="width: 27rem;">
+                            
+                                  <div class="card-body">
+                                        <h5 class="card-header"><a href="{% url 'into-task' task.id %}"><h3>{{task.name}}</h3></a></h5>
+                                            {% if task.description %}
+                                          
+                                            <p class="card-text">{{task.description}}</p>
+                                            {% else %}
+                                            {% endif %}
+                                            <a href="{% url 'complete-task' task.id %}" class="btn btn-primary">Complete</a>
+                                            <a href="{% url  'delete-task' task.id %}" class="btn btn-secondary">Delete</a>
+                                            <a href="{% url  'update-task' task.id %}" class="btn btn-primary">Edit</a>
+                                            
+                                  </div>
+                                  
+                                 
+                                 
+                                 
+                                </div>
+                                {% endfor %}
 
-              {%endfor%}
-              </div></div>
-              <div class="col">
-                <div class="box"></div></div>
-        </div>
-       
-        </div>
-        
-      </div>
-
+                              
             
-      {% endif %}
+                              {% endif%}
+                              
+                        </div>
+                  </div>
+            </div>
+            <!-- col3--------->
+          <div class="col">
+            <div class="box">
+              <div class="container-tasks py-3 px-3">
+                {% if not b %}
+                <h3> Completed Task Cards</h3>
+                {% for task in tasks_b%}
+                <div  class="card text-center mb-3" style="width: 27rem;">
+            
+                  <div class="card-body">
+                        <h5 class="card-header"><a href="{% url 'into-task' task.id %}"><h3>{{task.name}}</h3></a></h5>
+                            {% if task.description %}
+                          
+                            <p class="card-text">{{task.description}}</p>
+                            {% else %}
+                            {% endif %}
+                            <a href="{% url 'restore-task' task.id %}" class="btn btn-primary">Restore</a>
+                            <a href="{% url  'delete-task' task.id %}" class="btn btn-secondary">Delete</a>
+                            <a href="{% url  'update-task' task.id %}" class="btn btn-primary">Edit</a>
+                            
+                  </div>
+                  
+                 
+                 
+                 
+                </div>
+                {% endfor %}
+                {% else %}
+                <h3>No completed Task cards available !!
+                  <br>
+                </h3>
+              
+                    
+                <!-- card-------- -->
+      
+                {%endif%}
+              </div>
+
+            </div>
+          </div>
+                      
+            <div>
+      </div>
+</div>
+
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         
+
+
+
+
+
+
+
+
+
+
 
