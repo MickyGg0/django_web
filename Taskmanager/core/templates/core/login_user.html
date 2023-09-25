@@ -1,0 +1,122 @@
+{% extends 'main_template.html' %}
+
+{% block content %}
+
+
+
+
+<style>
+
+    .col-main{
+        background-color:whitesmoke;
+
+    }
+    .row-main{
+        height: 100vh;
+        padding-top: 100px;
+        padding-bottom: 600px;
+
+
+
+    }
+    .container-main{
+        background-color: rgb(5, 5, 65);
+    }
+
+    .btn-primary{
+        background-color: rgb(5, 5, 80);
+    
+    }
+    h5{
+        color:rgb(57, 57, 199)
+    }
+    .form-label-h5{
+        color:rgb(57, 57, 199)
+    }
+
+   
+    
+
+</style>
+
+<div class="container-fluid border container-main">
+    <div class="row row-main">
+        <div class="col"></div>
+        <div class="col col-main rounded">
+            <div class="box"style="padding-top: 40px;">
+                <br>
+                {%if page == "login"%}
+                <!-- <img src="{{user_profile.profile_picture.url}}" class="img-fluid rounded-start" alt="..."> -->
+                <form method="POST">
+                    {% csrf_token %}
+                    <!-- username input -->
+                    <div class="form-outline mb-3">
+                      <input type="text" name="username" class="form-control"/>
+                      <label class="form-label" ><h5 class="form-label-h5">Username</h5></label>
+                    </div>
+                    <br>
+                  
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                      <input type="password" name="password" id="form2Example2" class="form-control" />
+                      <label  class="form-label" ><h5 class="form-label-h5">Password</h5></label>
+                    </div>
+                  
+                  
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                  
+                    <!-- Register buttons -->
+                    <div class="text-center">
+                      <p><h5>Not a member?</h5><a class="btn btn-primary" href="{%url 'register'%}">Register</a></p>
+                    </div>
+                  </form>
+                  {% else %}
+                  <form action="" method="POST">
+                    {% csrf_token %}
+
+                    <div class="form-outline mb-3">
+                        <input type="text" name="username" class="form-control"/>
+                        <label class="form-label" ><h5 class="form-label-h5">Username</h5></label>
+                    </div>
+                    <br>
+                    <div class="form-outline mb-3">
+                        <input type="email" name="email" class="form-control"/>
+                        <label class="form-label" ><h5 class="form-label-h5">Email</h5></label>
+                    </div>
+                    <br>
+                    <div class="form-outline mb-3">
+                        <input type="password" name="password1" class="form-control"/>
+                        <label class="form-label" ><h5 class="form-label-h5">Password</h5></label>
+                    </div>
+                    <br>
+                    <div class="form-outline mb-3">
+                        <input type="password" name="password2" class="form-control"/>
+                        <label class="form-label" ><h5 class="form-label-h5">Confirm Password</h5></label>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block mb-4"><h6 style="color: white;">Register</h6></button>
+                    
+                    <div class="text-center">
+                        <p><h5>Already have an account?</h5><a class="btn btn-primary" href="{%url 'login'%}">Login</a></p>
+                      </div>
+                   
+
+                  </form>
+                  {%endif%}
+
+            </div>
+
+        </div>
+        <div class="col"></div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+{% endblock %}

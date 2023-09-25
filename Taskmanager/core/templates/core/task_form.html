@@ -1,0 +1,66 @@
+{% extends 'main_template.html' %}
+
+
+{% block content %}
+
+<style>
+    .row-main{
+        height:100vh;
+    }
+
+    .form-label-h5{
+        color:white;
+    }
+
+    .form-control{
+        color: white;
+    }
+</style>
+
+<div class="container-fluid border container-main">
+    <div class="row row-main">
+        <div class="col"></div>
+        <div class="col col-main rounded ">
+            <div class="box"style="padding-top: 40px;">
+                <br>
+                <div class="container border py-4 rounded" style="background-color: rgb(5, 5, 71);">
+                    <form method="POST" action="/create_task/">
+
+                        {% csrf_token %}
+                     
+                        <div class="form-outline mb-3">
+                            <input type="text" name="name" class="form-control"/>
+                            <label class="form-label" ><h6 class="form-label-h5">Taskname</h6></label>
+                        </div>
+                        <br>
+                        <div class="form-outline mb-3">
+                            <input type="text" name="priority" class="form-control"/>
+                            <label class="form-label" ><h6 class="form-label-h5">Priority</h6></label>
+                        </div>
+                        <br>
+                        <div class="form-outline mb-3">
+                            <input type="datetime" name="due_date" class="form-control"/>
+                            <label class="form-label" ><h6 class="form-label-h5">Due date</h6></label>
+                        </div>
+                        <br>
+                        <div class="form-outline mb-3">
+                            <input type="text" name="description" class="form-control"/>
+                            <label class="form-label" ><h6 class="form-label-h5">Description</h6></label>
+                        </div>
+                        <br>
+                        <button class="btn btn-primary btn-block mb-4" type="submit" ><h6 style="color: white;">Add Task</h6></button>
+                
+                        <!-- <input " type="submit" value="submit"/> -->
+                    </form>
+                </div>
+               
+            </div>
+
+        </div>
+        <div class="col"></div>
+
+    </div>
+
+</div>
+
+{% endblock %}

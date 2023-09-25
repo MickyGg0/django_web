@@ -1,0 +1,47 @@
+<div >
+<h3>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        
+        <div class="navbar-nav">
+          
+          <a class="btn btn-secondary"  class="nav-link active" aria-current="page" href="{% url 'homepage'%}"><h4>Home</h4></a>
+          
+        </div>
+        
+        <div class="navbar-nav" style="padding-left: 10px;">
+
+          {% if request.user.is_authenticated %}
+          <a style="background-color: rgb(5, 5, 100);" class="btn btn-primary"  class="nav-link active" aria-current="page" href="{% url 'create-task'%}"><h6>Create task card</h6></a>
+          {% else %}
+          {% endif %}
+          
+        </div>
+  
+      
+    <!-- Right elements -->
+    <div class="d-flex  align-items-center">
+      <!-- Icon -->
+      
+        {% if request.user.is_authenticated %}
+
+       
+        <a style="background-color: rgb(5, 5, 100);" class="btn btn-primary" href="{% url 'logout'%}"> <h6>Logout</h6></a>
+  
+        {% else %}
+        <a style="background-color: rgb(5, 5, 100);" class="btn btn-primary"  href="{% url 'login'%}">Login</a>
+        {% endif %}
+  
+
+
+    </div>
+    <!-- Right elements -->
+    </div>
+  </nav>   
+</h3>
+<div class="container">
+</div>
+
+
+
+</div>

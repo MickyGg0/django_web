@@ -1,0 +1,162 @@
+{% extends "main_template.html" %} 
+{% block title %} 
+{% endblock %}
+
+{% block content %}
+<style>
+  /* General styles */
+  .box {
+    height: 100vh;
+    background-color: whitesmoke;
+  }
+
+  .box-sidebar {
+    background-color: rgb(11, 11, 83);
+    height: 100vh;
+  }
+
+  .box-description {
+    background-color: whitesmoke;
+    position: relative;
+  }
+
+  .card-header {
+    background-color: white;
+  }
+
+  .card {
+    background-color: rgb(75, 75, 214);
+    width: 27rem;
+  }
+
+  .container-tasks {
+    height: 100vh;
+    overflow-y: scroll;
+  }
+
+  /* Styles for specific elements */
+  .container {
+    /* Add any specific styles for the container here */
+  }
+
+  h3 {
+    /* Add any specific styles for h3 elements here */
+    color:rgb(11, 11, 83);
+  }
+  .completed{
+    background-color: rgb(5, 5, 88);
+    color:white;
+  }
+  .custom-rounded-circle {
+    width: 100px;
+    height: 100px;
+    border:solid white;
+    border-radius: 50px;
+    overflow: hidden;
+  }
+
+  /* Add more specific styles for other elements if needed */
+</style>
+
+
+
+{% block scripts %}
+{% endblock %}
+<div class="container-fluid" style="border-top: solid rgb(5, 5, 88);">
+  <div class="row align-items-center" style="background-color:white;height:50px;">
+    <div class="col-5"></div>
+    <div class="col-4"><h4 style="color:rgb(5, 5, 88);font-family:cursive;padding:10px;">Task  Wallet</h4></div>
+    <div class="col"></div>
+  </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- col1 -->
+        <div class="col-2 box-sidebar">
+            <div  class="container py-5 px-5">
+              <div class="row" style="padding-left: 65px;">
+                <a href="{% url 'user-profile' %}">
+                 
+                  <img class="custom-rounded-circle" src="{{profile}}" alt="">
+                
+                    <h2 style="color:white;padding-left: 10px;border-top:double;width: 100px;padding-top: 5px;">{{ request.user.username }}</h2>
+                </a>
+              </div>
+               
+            </div>
+        </div>
+        <!-- col2 -->
+        <div class="col box">
+            <div class="container-tasks py-3 px-3">
+                {% if not a %}
+                <h3>No Task cards available !!<br><a href="{% url 'create-task' %}">Create one</a></h3>
+                {% else %}
+                <h3>Task Cards</h3>
+                {% for task in tasks_a %}
+                <!-- card -->
+
+                <ul>
+                  <li>
+                    
+                    <div class="card" style="width: 30rem;" style="padding: 5px;">
+                      <ul class="list-group list-group-light list-group-small">
+                        <li class="list-group-item px-3"><h5 class="card-header"><h3>{{ task.name }}</h3></h5></li>
+                        {% if task.description %}
+                        <li class="list-group-item px-3"><p class="card-text"><h4>{{ task.description }}</h4></p></li>
+                        {% else %}
+                        <li class="list-group-item  px-3"><a href="{% url 'update-task' task.id %}">+ Add a description </a></li>
+                        {% endif %}
+                      </ul>
+                      <div class="card-footer bg-light px-3">
+                        <a href="{% url 'complete-task' task.id %}" class="btn btn-primary"><h7>Complete</h7></a>
+                        <a href="{% url 'update-task' task.id %}" class="btn btn-primary"><h7>Edit</h7></a>
+                        <a href="{% url 'delete-task' task.id %}" class="btn btn-secondary"><h7>Delete</h7></a>
+                      </div>
+                    </div>
+
+
+
+                  </li>
+                </ul>
+                
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <!-- col3 -->
+        <div class="col box">
+            <div class="container-tasks py-3 px-3">
+                {% if not b %}
+                <h3>Completed Task Cards</h3>
+                {% for task in tasks_b %}
+                <ul>
+                  <li>
+                    
+                    <div class="card" style="width: 30rem;padding: 5px;">
+                      <ul class="list-group list-group-light list-group-small">
+                        <li class="list-group-item completed px-3"><h5 ><h3 style="color:white;" >{{ task.name }}</h3></h5></li>
+                        {% if task.descrtiption %}
+                        <li class="list-group-item completed px-3"><p class="card-text">{{ task.description }}</p></li>
+                        {% else %}
+                        {% endif %}
+                      </ul>
+                      <div class="card-footer bg-light px-3" style="background-color: rgb(5, 5, 88);">
+                        <a href="{% url 'restore-task' task.id %}" class="btn btn-primary"><h7>Restore</h7></a>
+                        <a href="{% url 'delete-task' task.id %}" class="btn btn-secondary"><h7>Delete</h7></a>
+                      </div>
+                    </div>
+
+
+
+                  </li>
+                </ul>
+                {% endfor %}
+                {% else %}
+                <h3>No completed Task cards available !!</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
